@@ -1,5 +1,5 @@
 import { User } from '@/@types/user'
-import { USERS_STORAGE_KEY } from '@/constants/usersKey'
+import { CURRENT_USER_KEY, USERS_STORAGE_KEY } from '@/constants/usersKey'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Crypto from 'expo-crypto'
 import { createContext, useCallback, useEffect, useState } from 'react'
@@ -8,7 +8,7 @@ type UserContextType = {
   users: User[]
   currentUser: User | null
   isLoading: boolean
-  register: (userData: Omit<User, 'id'>) => Promise<boolean>
+  register: (userData: Omit<User, 'id'>) => Promise<User>
   login: (email: string, password: string) => Promise<User>
   logout: () => Promise<void>
   editUser: (id: string, updated: Partial<User>) => Promise<void>
@@ -23,40 +23,71 @@ export const UserProvider = ({ children }: React.PropsWithChildren) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const storeData = useCallback(async (data: User[]) => {
+  const storeUsers = useCallback(async (data: User[]) => {
     await AsyncStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(data))
   }, [])
 
-  const loadData = useCallback(async () => {
+  const storeCurrentUser = useCallback(async (user: User | null) => {
+    if (user) {
+      await AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user))
+    } else {
+      await AsyncStorage.removeItem(CURRENT_USER_KEY)
+    }
+  }, [])
+
+  const loadUsers = useCallback(async () => {
     try {
       const jsonValue = await AsyncStorage.getItem(USERS_STORAGE_KEY)
-      const parsed = jsonValue ? JSON.parse(jsonValue) : []
-      setUsers(parsed)
+      setUsers(jsonValue ? JSON.parse(jsonValue) : [])
     } catch (e) {
       console.error('Erro ao carregar usuários:', e)
-    } finally {
-      setIsLoading(false)
+    }
+  }, [])
+
+  const loadCurrentUser = useCallback(async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(CURRENT_USER_KEY)
+      setCurrentUser(jsonValue ? JSON.parse(jsonValue) : null)
+    } catch (e) {
+      console.error('Erro ao carregar usuário atual:', e)
     }
   }, [])
 
   useEffect(() => {
-    loadData()
-  }, [loadData])
+    const initialize = async () => {
+      await loadUsers()
+      await loadCurrentUser()
+      setIsLoading(false)
+    }
+    initialize()
+  }, [loadUsers, loadCurrentUser])
 
   useEffect(() => {
-    if (!isLoading) storeData(users)
-  }, [users, storeData, isLoading])
+    if (!isLoading) storeUsers(users)
+  }, [users, storeUsers, isLoading])
+
+  useEffect(() => {
+    if (!isLoading) storeCurrentUser(currentUser)
+  }, [currentUser, storeCurrentUser, isLoading])
 
   const register = async (userData: Omit<User, 'id'>) => {
     const alreadyExists = users.some(
       (u) => u.email.toLowerCase() === userData.email.toLowerCase()
     )
-    if (alreadyExists) return false
 
-    const newUser: User = { id: String(Crypto.randomUUID()), ...userData }
+    if (alreadyExists) {
+      throw new Error('E-mail já está em uso')
+    }
+
+    const newUser: User = {
+      id: String(Crypto.randomUUID()),
+      ...userData,
+    }
+
     setUsers((prev) => [...prev, newUser])
     setCurrentUser(newUser)
-    return true
+
+    return newUser
   }
 
   const login = async (email: string, password: string) => {
@@ -81,6 +112,7 @@ export const UserProvider = ({ children }: React.PropsWithChildren) => {
     setUsers((prev) =>
       prev.map((u) => (u.id === id ? { ...u, ...updated } : u))
     )
+
     if (currentUser?.id === id) {
       setCurrentUser((prev) => (prev ? { ...prev, ...updated } : null))
     }

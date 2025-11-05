@@ -9,6 +9,8 @@ type CustomInputProps<T extends FieldValues> = {
   name: Path<T>
   keyboardType?: KeyboardTypeOptions
   rules?: object
+  viewClassname?: string
+  inputClassname?: string
 }
 
 const CustomInput = <T extends FieldValues>({
@@ -18,6 +20,8 @@ const CustomInput = <T extends FieldValues>({
   name,
   keyboardType = 'default',
   rules = {},
+  viewClassname,
+  inputClassname,
 }: CustomInputProps<T>) => {
   return (
     <Controller
@@ -28,7 +32,7 @@ const CustomInput = <T extends FieldValues>({
         field: { value, onChange, onBlur },
         fieldState: { error },
       }) => (
-        <View className={'w-4/5 rounded-xl gap-2'}>
+        <View className={cn('w-4/5 rounded-xl gap-2', viewClassname)}>
           <TextInput
             placeholder={placeholder}
             autoComplete='off'
@@ -39,7 +43,8 @@ const CustomInput = <T extends FieldValues>({
             secureTextEntry={secureTextEntry ?? false}
             className={cn(
               'bg-[#fff] rounded-xl border-2 text-[#144480] px-6 py-3',
-              error ? 'border-red-600' : 'border-transparent'
+              error ? 'border-red-600' : 'border-transparent',
+              inputClassname
             )}
           />
           <Text
