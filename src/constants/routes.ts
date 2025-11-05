@@ -22,8 +22,7 @@ export const ROUTES = {
   SIGN_IN: {
     ROUTE: '/sign-in' as Href,
     LABEL: 'Login',
-    NAME: 'sign-in',
-    ICON: 'sign-in-alt'
+    NAME: 'sign-in'
   },
   SIGN_UP: {
     ROUTE: '/sign-up' as Href,
