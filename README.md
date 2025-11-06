@@ -1,50 +1,106 @@
-# Welcome to your Expo app 👋
+# Fitaura App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo mobile focado em auxiliar na organização de rotina fitness, permitindo o gerenciamento de **usuários**, **visualização de treinos**, **acompanhamento alimentar** e uma **loja** com produtos relacionados ao estilo de vida saudável.
 
-## Get started
+---
 
-1. Install dependencies
+## Membros do Grupo
 
-   ```bash
-   npm install
-   ```
+| Nome                                  | RM     |
+| ------------------------------------- | ------ |
+| **Gabriel Leão da Silva**             | 552642 |
+| **Matheus Farias de Lima**            | 554254 |
+| **Miguel Mauricio Parrado Patarroyo** | 554007 |
+| **Vitor Pinheiro Nascimento**         | 553693 |
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## Funcionalidades
 
-In the output, you'll find options to open the app in a
+- **Criar usuário** (com validações)
+- **Login e Logout**
+- **Excluir usuário**
+- **Armazenamento local com AsyncStorage**
+- **Tela Home** com saudação e refeições (mockadas)
+- **Tela de Treinos** com exercícios organizados por grupo muscular
+- **Tela de Loja** com produtos simulados
+- **Tela de Perfil** com dados do usuário
+- Interface estilizada com **NativeWind**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Telas Principais
 
-## Get a fresh project
+- **Home** → Saudação + refeições + totais nutricionais
+- **Treinos** → Lista de treinos e exercícios
+- **Loja** → Lista de itens fitness
+- **Perfil** → Informações do usuário + sair e apagar conta
 
-When you're ready, run:
+---
+
+## Como Executar o Projeto
+
+### 1. Clonar o repositório
 
 ```bash
-npm run reset-project
+git clone https://github.com/Gabriel-Leao/fitaura.app.git
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Acessar diretório do projeto
 
-## Learn more
+```bash
+cd fitaura.app
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. Instalar dependências
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm install
+```
 
-## Join the community
+### 4. Iniciar o projeto
 
-Join our community of developers creating universal apps.
+```bash
+npm run start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## Rodar no Celular (Expo Go)
+
+1. Baixe o **Expo Go** no seu aparelho (Android/iOS)
+2. Rode o projeto com `npm run start`
+3. Escaneie o **QR Code** exibido no terminal
+4. O aplicativo será aberto automaticamente no seu dispositivo
+
+---
+
+## Rodar no Emulador Android
+
+1. Instale o **Android Studio** e configure um dispositivo virtual
+2. Rode o projeto:
+
+```bash
+npm run start
+```
+
+3. No terminal do Expo, pressione: `a`
+
+---
+
+## Tecnologias Utilizadas
+
+- **React Native**
+- **Expo**
+- **NativeWind**
+- **AsyncStorage**
+- **React Hook Form**
+- **TypeScript**
+
+---
+
+## Licença
+
+Projeto desenvolvido para fins acadêmicos — Licença MIT.
+
+---
