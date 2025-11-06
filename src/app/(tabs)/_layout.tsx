@@ -1,8 +1,18 @@
+import { useUserContext } from '@/components/context/useUserContext'
 import { ROUTES } from '@/constants/routes'
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
-import { Tabs } from 'expo-router'
+import { router, Tabs } from 'expo-router'
+import { useEffect } from 'react'
 
 export default function TabsLayout() {
+  const { currentUser } = useUserContext()
+
+  useEffect(() => {
+    if (!currentUser) {
+      router.push(ROUTES.SIGN_IN.ROUTE)
+    }
+  }, [currentUser])
+
   return (
     <Tabs
       screenOptions={{
@@ -14,22 +24,6 @@ export default function TabsLayout() {
         tabBarActiveTintColor: '#B872FF',
         tabBarInactiveTintColor: '#FFFFFF',
       }}>
-      <Tabs.Screen
-        name={ROUTES.SIGN_IN.NAME}
-        options={{
-          title: ROUTES.SIGN_IN.LABEL,
-          href: null,
-        }}
-      />
-
-      <Tabs.Screen
-        name={ROUTES.SIGN_UP.NAME}
-        options={{
-          title: ROUTES.SIGN_UP.LABEL,
-          href: null,
-        }}
-      />
-
       <Tabs.Screen
         name={ROUTES.HOME.NAME}
         options={{

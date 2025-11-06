@@ -33,7 +33,7 @@ const CustomPicker = <T extends FieldValues>({
       name={name}
       rules={rules}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
-        <View className={cn('w-5/12 rounded-xl gap-2', viewClassname)}>
+        <View className={cn('w-4/5 rounded-xl gap-2', viewClassname)}>
           <View
             className={cn(
               'bg-white rounded-xl border-2',

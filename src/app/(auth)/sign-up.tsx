@@ -135,31 +135,28 @@ const SignUp = () => {
             />
           </View>
 
-          <View className='flex flex-row gap-8 justify-center'>
-            <CustomPicker
-              control={control}
-              name='sex'
-              placeholder='Sexo'
-              viewClassname='w-[30%]'
-              rules={{ required: 'Selecione seu sexo' }}
-              options={[
-                { label: 'Masculino', value: 'male' },
-                { label: 'Feminino', value: 'female' },
-              ]}
-            />
+          <CustomPicker
+            control={control}
+            name='sex'
+            placeholder='Sexo'
+            rules={{ required: 'Selecione seu sexo' }}
+            options={[
+              { label: 'Masculino', value: 'male' },
+              { label: 'Feminino', value: 'female' },
+            ]}
+          />
 
-            <CustomPicker
-              control={control}
-              name='goal'
-              placeholder='Objetivo'
-              rules={{ required: 'Selecione seu objetivo' }}
-              options={[
-                { label: 'Perder peso', value: 'lose' },
-                { label: 'Ganhar peso', value: 'gain' },
-                { label: 'Manter peso', value: 'maintain' },
-              ]}
-            />
-          </View>
+          <CustomPicker
+            control={control}
+            name='goal'
+            placeholder='Objetivo'
+            rules={{ required: 'Selecione seu objetivo' }}
+            options={[
+              { label: 'Perder peso', value: 'lose' },
+              { label: 'Ganhar peso', value: 'gain' },
+              { label: 'Manter peso', value: 'maintain' },
+            ]}
+          />
 
           <CustomButton
             onPress={handleSubmit(onCreatePressed)}
