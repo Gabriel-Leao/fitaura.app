@@ -141,8 +141,8 @@ const SignUp = () => {
             placeholder='Sexo'
             rules={{ required: 'Selecione seu sexo' }}
             options={[
-              { label: 'Masculino', value: 'male' },
-              { label: 'Feminino', value: 'female' },
+              { label: 'Masculino', value: 'Masculino' },
+              { label: 'Feminino', value: 'Feminino' },
             ]}
           />
 
@@ -152,9 +152,9 @@ const SignUp = () => {
             placeholder='Objetivo'
             rules={{ required: 'Selecione seu objetivo' }}
             options={[
-              { label: 'Perder peso', value: 'lose' },
-              { label: 'Ganhar peso', value: 'gain' },
-              { label: 'Manter peso', value: 'maintain' },
+              { label: 'Perder peso', value: 'Perder peso' },
+              { label: 'Ganhar peso', value: 'Ganhar peso' },
+              { label: 'Manter peso', value: 'Manter peso' },
             ]}
           />
 

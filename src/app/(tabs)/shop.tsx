@@ -1,12 +1,10 @@
 import ScreenPageContainer from '@/components/ScreenPageContainer'
-import ScreenPageTitle from '@/components/ScreenPageTitle'
 import { STORE_DATA } from '@/constants/store'
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 const Shop = () => {
   return (
     <ScreenPageContainer className='py-20'>
-      <ScreenPageTitle>Loja</ScreenPageTitle>
       <ScrollView
         showsVerticalScrollIndicator={false}
         className='flex-1 px-4 py-6'>

@@ -11,9 +11,7 @@ type UserContextType = {
   register: (userData: Omit<User, 'id'>) => Promise<User>
   login: (email: string, password: string) => Promise<User>
   logout: () => Promise<void>
-  editUser: (id: string, updated: Partial<User>) => Promise<void>
   deleteUser: (id: string) => Promise<void>
-  getUserById: (id: string) => User | undefined
 }
 
 export const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -108,22 +106,20 @@ export const UserProvider = ({ children }: React.PropsWithChildren) => {
     setCurrentUser(null)
   }
 
-  const editUser = async (id: string, updated: Partial<User>) => {
-    setUsers((prev) =>
-      prev.map((u) => (u.id === id ? { ...u, ...updated } : u))
-    )
+  const deleteUser = async (id: string) => {
+    const userExists = users.some((u) => u.id === id)
+
+    if (!userExists) {
+      throw new Error('Usuário não encontrado')
+    }
+
+    const updatedUsers = users.filter((u) => u.id !== id)
+    setUsers(updatedUsers)
 
     if (currentUser?.id === id) {
-      setCurrentUser((prev) => (prev ? { ...prev, ...updated } : null))
+      setCurrentUser(null)
     }
   }
-
-  const deleteUser = async (id: string) => {
-    setUsers((prev) => prev.filter((u) => u.id !== id))
-    if (currentUser?.id === id) setCurrentUser(null)
-  }
-
-  const getUserById = (id: string) => users.find((u) => u.id === id)
 
   return (
     <UserContext.Provider
@@ -134,9 +130,7 @@ export const UserProvider = ({ children }: React.PropsWithChildren) => {
         register,
         login,
         logout,
-        editUser,
         deleteUser,
-        getUserById,
       }}>
       {children}
     </UserContext.Provider>
